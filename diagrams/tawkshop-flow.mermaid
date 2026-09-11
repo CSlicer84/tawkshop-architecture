@@ -1,0 +1,12 @@
+flowchart TD
+    A[Sources: calls, email, CRM, documents] --> B[Analysis layer]
+    B -->|proposal, never a write| C[Validation against the write contract]
+    C --> D{Human review}
+    D -->|approved as proposed| F[Deterministic apply engine]
+    D -->|amended, re-validated| F
+    D -->|discarded| X[Discarded, recorded]
+    F --> G[(canonical_state)]
+    F --> H[(audit trail: author, evidence, source)]
+    X --> H
+    G --> I[Coverage, briefs, MCP read surface]
+    I --> B
